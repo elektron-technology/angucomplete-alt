@@ -214,23 +214,44 @@
       }
 
       function findMatchString(target, str) {
-        var result, matches, re;
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
         // Escape user input to be treated as a literal string within a regular expression
-        re = new RegExp(str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+        var re = new RegExp(str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
         if (!target) {
           return;
         }
         if (!target.match || !target.replace) {
           target = target.toString();
         }
-        matches = target.match(re);
-        if (matches) {
-          result = target.replace(re,
-            '<span class="' + scope.matchClass + '">' + matches[0] + '</span>');
-        } else {
-          result = target;
+
+        // Get the first match of the search string
+        // TODO investigate polyfill for matchAll so we can highlight all the matches
+        var match = target.match(re);
+
+        // If there are no matches, we can just use the target string
+        if (!match || !match[0]) {
+          return [{string: target, match: false}];
         }
+
+        var result = [];
+
+        // Account for a possible unmatched region between start of string and the first match
+        if (match.index > 0) {
+          result.push({string: target.substring(0, match.index), match: false});
+        }
+
+        // Add every result to the matches array tagged as a match
+        var matchedRegion = match[0];
+
+        result.push({string: matchedRegion, match: true});
+
+        // Account for a region between this match and the end of the string
+        var unmatchedRegion = target.substring(match.index + matchedRegion.length, target.length);
+
+        if (unmatchedRegion.length > 0) {
+          result.push({string: unmatchedRegion, match: false});
+        }
+
         return result;
       }
 
