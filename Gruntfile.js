@@ -20,8 +20,7 @@ module.exports = function (grunt) {
     },
     karma: {
       options: {
-        configFile: 'test/karma.conf.js',
-        browsers: ['PhantomJS']
+        configFile: 'test/karma.conf.js'
       },
       unit: {
         singleRun: true
