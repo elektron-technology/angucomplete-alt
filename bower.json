@@ -13,8 +13,8 @@
   ],
   "license": "MIT",
   "main": [
-      "./angucomplete-alt.js",
-      "./angucomplete-alt.css"
+    "./angucomplete-alt.js",
+    "./angucomplete-alt.css"
   ],
   "ignore": [
     "example",
