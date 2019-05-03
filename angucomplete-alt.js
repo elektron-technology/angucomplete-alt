@@ -57,9 +57,9 @@
       '        <img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="angucomplete-image"/>' +
       '        <div ng-if="!result.image && result.image != \'\'" class="angucomplete-image-default"></div>' +
       '      </div>' +
-      '      <div class="angucomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div>' +
+      '      <div class="angucomplete-title" ng-if="matchClass"><span ng-repeat="part in results.title" class="angucomplete-match" ng-class="{[matchClass]: part.match}">{{part.string}}</span></div>' +
       '      <div class="angucomplete-title" ng-if="!matchClass">{{ result.title }}</div>' +
-      '      <div ng-if="matchClass && result.description && result.description != \'\'" class="angucomplete-description" ng-bind-html="result.description"></div>' +
+      '      <div ng-if="matchClass && result.description && result.description != \'\'" class="angucomplete-description"><span ng-repeat="part in results.description" class="angucomplete-match" ng-class="{[matchClass]: part.match}">{{part.string}}</span></div>' +
       '      <div ng-if="!matchClass && result.description && result.description != \'\'" class="angucomplete-description">{{result.description}}</div>' +
       '    </div>' +
       '  </div>' +
